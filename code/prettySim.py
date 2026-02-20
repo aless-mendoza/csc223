@@ -8,23 +8,17 @@ def clear_screen():
     sys.stdout.write('\033[2J\033[H')
     sys.stdout.flush()
 
-def render_table(ilist, queue):
-    """Formats and prints the table to the terminal with ilist and queue data."""
+def render_table(queue):
+    """Formats and prints the table to the terminal with queue data."""
     clear_screen()
     
-    # Print headers
-    sys.stdout.write(f'{"Remaining Items":<30} | {"Queue":<30}\n')
-    sys.stdout.write('-' * 63 + '\n')
+    # Print header
+    sys.stdout.write(f'{"Queue":<30}\n')
+    sys.stdout.write('-' * 30 + '\n')
     
-    # Get the maximum number of rows needed
-    max_rows = max(len(ilist), len(queue))
-    
-    # Print each row
-    for i in range(max_rows):
-        left_item = ilist[i] if i < len(ilist) else ""
-        right_item = queue[i] if i < len(queue) else ""
-        
-        sys.stdout.write(f'{left_item:<30} | {right_item:<30}\n')
+    # Print each queue item
+    for item in queue:
+        sys.stdout.write(f'{item:<30}\n')
     
     sys.stdout.flush()
 
@@ -55,9 +49,10 @@ try:
             # If ilist is empty, just remove remaining queue items
             if queue:
                 del queue[-1]
-        render_table(ilist, queue)
 
+        render_table(queue) 
         time.sleep(1)  # Update every second
-        
+
+
 except KeyboardInterrupt:
     print("\nExiting live update.")
