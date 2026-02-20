@@ -11,9 +11,6 @@ with open(file_path) as file:
     random.shuffle(ilist)
 
 queue = []
-queue.insert(0,ilist[0])
-del ilist[0]
-print( str(queue[0]) + " entered the queue")
 
 while ilist != []:
     choice = random.randint(0,1)
@@ -28,6 +25,6 @@ while ilist != []:
             print( str(queue[-1]) + " left the queue")
             del queue[-1]
 
-if queue != []:
+while queue != []:
     print( str(queue[-1]) + " left the queue")
     del queue[-1]
