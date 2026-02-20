@@ -30,7 +30,7 @@ with open(file_path) as file:
 
 random.shuffle(ilist)
 queue = []
-str log
+log = ""
 # Main loop to process queue and update table live
 try:
     while ilist or queue:
@@ -55,10 +55,11 @@ try:
         render_table(queue) 
         time.sleep(1)  # Update every second
 
+except KeyboardInterrupt:
+    print("\nExiting live update.")
+    
+    
 with open("logs.txt", "w") as file:
     file.write(log)
 
 print ("Creating logs.txt.../n Done!")
-
-except KeyboardInterrupt:
-    print("\nExiting live update.")
