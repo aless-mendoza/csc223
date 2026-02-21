@@ -1,0 +1,5 @@
+b entered the queue
+c entered the queue
+a entered the queue
+c left the queue
+a left the queue
