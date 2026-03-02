@@ -4,3 +4,7 @@
 [._]s[a-v][a-z]
 [._]sw[a-p]
 .DS_Store
+*.bin
+*.swp
+*.dsk
+cpm
