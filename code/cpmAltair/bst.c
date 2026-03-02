@@ -9,8 +9,8 @@ struct node *tree;
 
 struct node *insrtEl();
 void preord();
-void inord();
-void postorder();
+void inorder();
+void postord();
 struct node *findSml();
 struct node *findLrg();
 struct node *delElem();
@@ -49,63 +49,63 @@ int main()
 	case 1:
 	    printf("\n Enter the value of the new node : ");
 	    scanf("%d", &val);
-	    tree = insertElement(tree, val);
+	    tree = insrtEl(tree, val);
 	    break;
 	case 2:
 	    printf("\n The elements of the tree are : \n");
-	    preorderTraversal(tree);
+	    preorder(tree);
 	    break;
 	case 3:
 	    printf("\n The elements of the tree are : \n");
-	    inorderTraversal(tree);
+	    inorder(tree);
 	    break;
 	case 4:
 	    printf("\n The elements of the tree are : \n");
-	    postorderTraversal(tree);
+	    postord(tree);
 	    break;
 	case 5:
-	    ptr = findSmallestElement(tree);
+	    ptr = findSml(tree);
 	    printf("\n Smallest element is :%d", ptr->data);
 	    break;
 	case 6:
-	    ptr = findLargestElement(tree);
+	    ptr = findLrg(tree);
 	    printf("\n Largest element is : %d", ptr->data);
 	    break;
 	case 7:
 	    printf("\n Enter the element to be deleted : ");
 	    scanf("%d", &val);
-	    tree = deleteElement(tree, val);
+	    tree = delElem(tree, val);
 	    break;
 	case 8:
-	    printf("\n Total no. of nodes = %d", totalNodes(tree));
+	    printf("\n Total no. of nodes = %d", totNodes(tree));
 	    break;
 	case 9:
 	    printf("\n Total no. of external nodes = %d",
-		   totalExternalNodes(tree));
+		   totExtNd(tree));
 	    break;
 	case 10:
 	    printf("\n Total no. of internal nodes = %d",
-		   totalInternalNodes(tree));
+		   totIntNd(tree));
 	    break;
 	case 11:
 	    printf("\n The height of the tree = %d", Height(tree));
 	    break;
 	case 12:
-	    tree = mirrorImage(tree);
+	    tree = mirror(tree);
 	    break;
 	case 13:
-	    tree = deleteTree(tree);
+	    tree = delTree(tree);
 	    break;
 	}
     } while (option != 14);
     return 0;
 }
 
-struct node *insertElement(tree, val)
+struct node *insrtEl(tree, val)
 struct node *tree;
 int val;
 {
-    struct node *ptr, *nodeptr, *parentptr;
+    struct node *ptr, *ndptr, *parptr;
     ptr = (struct node *) alloc(sizeof(struct node));
     ptr->data = val;
     ptr->left = NULL;
@@ -115,72 +115,72 @@ int val;
 	tree->left = NULL;
 	tree->right = NULL;
     } else {
-	parentptr = NULL;
-	nodeptr = tree;
-	while (nodeptr != NULL) {
-	    parentptr = nodeptr;
-	    if (val < nodeptr->data)
-		nodeptr = nodeptr->left;
+	parptr = NULL;
+	ndptr = tree;
+	while (ndptr != NULL) {
+	    parptr = ndptr;
+	    if (val < ndptr->data)
+		ndptr = ndptr->left;
 	    else
-		nodeptr = nodeptr->right;
+		ndptr = ndptr->right;
 	}
-	if (val < parentptr->data)
-	    parentptr->left = ptr;
+	if (val < parptr->data)
+	    parptr->left = ptr;
 	else
-	    parentptr->right = ptr;
+	    parptr->right = ptr;
     }
     return tree;
 }
 
-void preorderTraversal(tree)
+void preorder(tree)
 struct node *tree;
 {
     if (tree != NULL) {
 	printf("%d\t", tree->data);
-	preorderTraversal(tree->left);
-	preorderTraversal(tree->right);
+	preorder(tree->left);
+	preorder(tree->right);
     }
 }
 
-void inorderTraversal(tree)
+void inorder(tree)
 struct node *tree;
 {
     if (tree != NULL) {
-	inorderTraversal(tree->left);
+	inorder(tree->left);
 	printf("%d\t", tree->data);
-	inorderTraversal(tree->right);
+	inorder(tree->right);
     }
 }
 
-void postorderTraversal(tree)
+void postord(tree)
 struct node *tree;
 {
     if (tree != NULL) {
-	postorderTraversal(tree->left);
-	postorderTraversal(tree->right);
+	postord(tree->left);
+	postord(tree->right);
 	printf("%d\t", tree->data);
     }
 }
 
-struct node *findSmallestElement(tree)
+struct node *findSml(tree)
 struct node *tree;
 {
     if ((tree == NULL) || (tree->left == NULL))
 	return tree;
     else
-	return findSmallestElement(tree->left);
+	return findSml(tree->left);
 }
 
-struct node *findLargestElement(tree)
+struct node *findLrg(tree)
 struct node *tree;
 {
     if ((tree == NULL) || (tree->right == NULL))
 	return tree;
     else
-	return findLargestElement(tree->right);
+	return findLrg(tree->right);
 }
 
-struct node *deleteElement(tree, val)
+struct node *delElem(tree, val)
 struct node *tree;
 int val;
 {
@@ -227,16 +227,16 @@ int val;
     return tree;
 }
 
-int totalNodes(tree)
+int totNodes(tree)
 struct node *tree;
 {
     if (tree == NULL)
 	return 0;
     else
-	return (totalNodes(tree->left) + totalNodes(tree->right) + 1);
+	return (totNodes(tree->left) + totNodes(tree->right) + 1);
 }
 
-int totalExternalNodes(tree)
+int totExtNd(tree)
 struct node *tree;
 {
     if (tree == NULL)
@@ -244,43 +244,43 @@ struct node *tree;
     else if ((tree->left == NULL) && (tree->right == NULL))
 	return 1;
     else
-	return (totalExternalNodes(tree->left) +
-		totalExternalNodes(tree->right));
+	return (totExtNd(tree->left) +
+		totExtNd(tree->right));
 }
 
-int totalInternalNodes(tree)
+int totIntNd(tree)
 struct node *tree;
 {
     if ((tree == NULL) || ((tree->left == NULL) && (tree->right == NULL)))
 	return 0;
     else
-	return (totalInternalNodes(tree->left)
-		+ totalInternalNodes(tree->right) + 1);
+	return (totIntNd(tree->left)
+		+ totIntNd(tree->right) + 1);
 }
 
 int Height(tree)
 struct node *tree;
 {
-    int leftheight, rightheight;
+    int lftht, rgtht;
     if (tree == NULL)
 	return 0;
     else {
-	leftheight = Height(tree->left);
-	rightheight = Height(tree->right);
-	if (leftheight > rightheight)
-	    return (leftheight + 1);
+	lftht = Height(tree->left);
+	rgtht = Height(tree->right);
+	if (lftht > rgtht)
+	    return (lftht + 1);
 	else
-	    return (rightheight + 1);
+	    return (rgtht + 1);
     }
 }
 
-struct node *mirrorImage(tree)
+struct node *mirror(tree)
 struct node *tree;
 {
     struct node *ptr;
     if (tree != NULL) {
-	mirrorImage(tree->left);
-	mirrorImage(tree->right);
+	mirror(tree->left);
+	mirror(tree->right);
 	ptr = tree->left;
 	tree->left = tree->right;
 	tree->right = ptr;
@@ -288,14 +288,15 @@ struct node *tree;
     return tree;
 }
 
-struct node *deleteTree(tree)
+struct node *delTree(tree)
 struct node *tree;
 {
     if (tree != NULL) {
-	deleteTree(tree->left);
-	deleteTree(tree->right);
+	delTree(tree->left);
+	delTree(tree->right);
 	free(tree);
     }
     return NULL;
 }
+
 
