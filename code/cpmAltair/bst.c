@@ -106,7 +106,7 @@ struct node *tree;
 int val;
 {
     struct node *ptr, *ndptr, *parptr;
-    ptr = (struct node *) alloc(sizeof(struct node));
+    ptr = alloc(6);
     ptr->data = val;
     ptr->left = NULL;
     ptr->right = NULL;
@@ -228,7 +228,7 @@ int val;
 	parent->left = ptr;
     else
 	parent->right = ptr;
-    cfree(cur);
+    free(cur);
     return tree;
 }
 
@@ -299,7 +299,7 @@ struct node *tree;
     if (tree != NULL) {
 	delTree(tree->left);
 	delTree(tree->right);
-	cfree(tree);
+	free(tree);
     }
     return NULL;
 }
