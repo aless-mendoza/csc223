@@ -7,19 +7,20 @@ struct node {
 
 struct node *tree;
 
-struct node *insertElement();
-void preorderTraversal();
-void inorderTraversal();
-void postorderTraversal();
-struct node *findSmallestElement();
-struct node *findLargestElement();
-struct node *deleteElement();
-struct node *mirrorImage();
-int totalNodes();
-int totalExternalNodes();
-int totalInternalNodes();
+struct node *insrtEl();
+void preord();
+void inord();
+void postorder();
+struct node *findSml();
+struct node *findLrg();
+struct node *delElem();
+struct node *mirror();
+int totNodes();
+int totExtNd();
+int totIntNd();
 int Height();
-struct node *deleteTree();
+struct node *delTree();
+
 
 int main()
 {
