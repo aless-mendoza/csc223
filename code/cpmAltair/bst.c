@@ -132,7 +132,7 @@ int val;
     return tree;
 }
 
-void preorder(tree)
+int preorder(tree)
 struct node *tree;
 {
     if (tree != NULL) {
@@ -140,9 +140,10 @@ struct node *tree;
 	preorder(tree->left);
 	preorder(tree->right);
     }
+    return 0;
 }
 
-void inorder(tree)
+int inorder(tree)
 struct node *tree;
 {
     if (tree != NULL) {
@@ -150,9 +151,10 @@ struct node *tree;
 	printf("%d\t", tree->data);
 	inorder(tree->right);
     }
+    return 0;
 }
 
-void postord(tree)
+int postord(tree)
 struct node *tree;
 {
     if (tree != NULL) {
@@ -160,6 +162,7 @@ struct node *tree;
 	postord(tree->right);
 	printf("%d\t", tree->data);
     }
+    return 0;
 }
 
 struct node *findSml(tree)
@@ -185,12 +188,12 @@ struct node *tree;
 int val;
 {
     struct node *cur, *parent, *suc, *psuc, *ptr;
-    if (tree->left == NULL) {
+    if (tree == NULL) {
 	printf("\n The tree is empty ");
 	return (tree);
     }
-    parent = tree;
-    cur = tree->left;
+    parent = NULL;
+    cur = tree; 
     while (cur != NULL && val != cur->data) {
 	parent = cur;
 	cur = (val < cur->data) ? cur->left : cur->right;
@@ -219,11 +222,13 @@ int val;
 	}
 	ptr = suc;
     }
+    if (parent == NULL)
+        return tree;
     if (parent->left == cur)
 	parent->left = ptr;
     else
 	parent->right = ptr;
-    free(cur);
+    cfree(cur);
     return tree;
 }
 
@@ -294,7 +299,7 @@ struct node *tree;
     if (tree != NULL) {
 	delTree(tree->left);
 	delTree(tree->right);
-	free(tree);
+	cfree(tree);
     }
     return NULL;
 }
